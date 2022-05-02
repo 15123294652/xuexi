@@ -1,0 +1,87 @@
+server:
+  servlet:
+    context-path: /pmp
+  port: 8099
+  tomcat:
+    uri-encoding: utf-8
+    threads:
+      max: 1000
+      min-spare: 30
+      #通用配置(跳过这些依赖)
+    additional-tld-skip-patterns: jaxb-api.jar,jaxb-core.jar
+
+#json序列化配置
+spring:
+  jackson:
+    date-format: yyyy-mm-dd HH:mm:ss
+    time-zone: GMT+8
+  #上传文件限制配置
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+      enabled: true
+#redis
+ # redis:
+   # host: 127.0.0.1
+  #  port: 6379
+   # username: like
+   # password: 123
+
+#freemarker
+  freemarker:
+    cache: false
+    charset: UTF-8
+    suffix: .html
+    request-context-attribute: request
+    template-loader-path: classpath:/templates
+#数据源配置
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://110.40.194.40:3306/pmp?characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 191110
+    #数据库链接池配置
+    druid:
+      initial-size: 10
+      max-active: 50
+      min-idle: 10
+      max-wait: 60000
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+      filter:
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 1000
+        wall:
+          config:
+            multi-statement-allow: true
+
+#mybatisplus配置
+mybatis-plus:
+  configuration:
+    #打印sql日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      #配置表的通用前最
+      #table-prefix: t_
+      #ID自增长
+      id-type: auto
+  #配置类型别名的包
+  type-aliases-package: com.like.pmp.model.entity
+  #扫描sql.xml文件
+  mapper-locations: classpath:mappers/*.xml
+
+
+
+
