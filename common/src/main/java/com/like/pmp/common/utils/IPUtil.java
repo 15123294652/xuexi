@@ -6,7 +6,13 @@ import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 
-//IP地址工具
+/**
+ * IP地址工具
+ * @author like
+ * @date 2022/5/3 20:41
+ * @param null
+ * @return null
+ */
 public class IPUtil {
 	private static Logger logger = LoggerFactory.getLogger(IPUtil.class);
 
