@@ -21,4 +21,10 @@ public abstract class AbstractController {
         return user;
     }
 
+    public Long getUserId(){
+        SysUser user = (SysUser) SecurityUtils.getSubject().getPrincipal();
+        Long userId = user.getUserId();
+        return userId;
+    }
+
 }
