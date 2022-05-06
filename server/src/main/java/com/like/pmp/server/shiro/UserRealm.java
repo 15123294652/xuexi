@@ -58,8 +58,8 @@ public class UserRealm extends AuthorizingRealm{
         List<String> perms= Lists.newLinkedList();
 
         //系统超级管理员拥有最高的权限，不需要发出sql的查询，直接拥有所有权限；否则，则需要根据当前用户id去查询权限列表
-        if (userId== Constant.SUPER_ADMIN){
-            List<SysMenu> list=sysMenuMapper.list();
+        if (userId.equals(Constant.SUPER_ADMIN)){
+            List<SysMenu> list=sysMenuMapper.selectList(null);
             if (list!=null && !list.isEmpty()){
                 perms=list.stream().map(SysMenu::getPerms).collect(Collectors.toList());
             }
