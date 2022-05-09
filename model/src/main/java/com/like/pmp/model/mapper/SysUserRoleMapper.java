@@ -2,6 +2,7 @@ package com.like.pmp.model.mapper;
 
 import com.like.pmp.model.entity.SysUserRole;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface SysUserRoleMapper extends BaseMapper<SysUserRole> {
 
+    void deleteBatch(@Param("roleId") String roleId);
 }

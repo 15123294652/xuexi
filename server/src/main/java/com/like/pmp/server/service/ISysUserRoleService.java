@@ -3,6 +3,8 @@ package com.like.pmp.server.service;
 import com.like.pmp.model.entity.SysUserRole;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 用户与角色对应关系 服务类
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ISysUserRoleService extends IService<SysUserRole> {
 
+    void deleteBatch(List<Long> roleIds);
 }
