@@ -16,4 +16,8 @@ import java.util.List;
 public interface ISysUserRoleService extends IService<SysUserRole> {
 
     void deleteBatch(List<Long> roleIds);
+
+    void roleSaveOrUpdate(Long userId,List<Long> roleIds);
+
+    List<Long> queryRoleIdList(Long userId);
 }

@@ -1,9 +1,15 @@
 package com.like.pmp.model.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -24,6 +30,7 @@ public class SysUser implements Serializable {
     /**
      * 姓名
      */
+    @NotBlank(message="用户名不能为空")
     private String name;
 
     /**
@@ -34,6 +41,7 @@ public class SysUser implements Serializable {
     /**
      * 密码
      */
+    @NotBlank(message="密码不能为空")
     private String password;
 
     /**
@@ -44,11 +52,13 @@ public class SysUser implements Serializable {
     /**
      * 邮箱
      */
+    @NotBlank(message="邮箱不能为空!")
     private String email;
 
     /**
      * 手机号
      */
+    @NotBlank(message="手机号不能为空!")
     private String mobile;
 
     /**
@@ -59,12 +69,38 @@ public class SysUser implements Serializable {
     /**
      * 部门ID
      */
+    @NotNull(message="部门Id不能为空!")
     private Long deptId;
 
     /**
      * 创建时间
      */
-    private LocalDateTime createTime;
+    private Date createTime;
+
+    /**
+     * 部门名称
+     */
+    @TableField(exist = false)
+    private String deptName;
+
+    /**
+     * 部门名称
+     */
+    @TableField(exist = false)
+    private String postName;
+
+    /**
+     * 用户所有的角色列表（@TableField：字段属性不为数据库表字段，但又是必须使用的）
+     */
+    @TableField(exist=false)
+    private List<Long> roleIdList;
+
+    /**
+     * 用户所有的岗位列表（@TableField：字段属性不为数据库表字段，但又是必须使用的）
+     */
+    @TableField(exist=false)
+    private List<Long> postIdList;
+
 
     public Long getUserId() {
         return userId;
@@ -129,12 +165,44 @@ public class SysUser implements Serializable {
     public void setDeptId(Long deptId) {
         this.deptId = deptId;
     }
-    public LocalDateTime getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(LocalDateTime createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
+    }
+
+    public String getPostName() {
+        return postName;
+    }
+
+    public void setPostName(String postName) {
+        this.postName = postName;
+    }
+
+    public List<Long> getRoleIdList() {
+        return roleIdList;
+    }
+
+    public void setRoleIdList(List<Long> roleIdList) {
+        this.roleIdList = roleIdList;
+    }
+
+    public List<Long> getPostIdList() {
+        return postIdList;
+    }
+
+    public void setPostIdList(List<Long> postIdList) {
+        this.postIdList = postIdList;
     }
 
     @Override

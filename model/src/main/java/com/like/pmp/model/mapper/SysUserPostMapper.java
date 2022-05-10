@@ -2,6 +2,10 @@ package com.like.pmp.model.mapper;
 
 import com.like.pmp.model.entity.SysUserPost;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -13,4 +17,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface SysUserPostMapper extends BaseMapper<SysUserPost> {
 
+    Set<String> getPostNameByUserId(@Param("userId") Long userId);
+
+    List<Long> queryRoleIdList(@Param("userId") Long userId);
 }

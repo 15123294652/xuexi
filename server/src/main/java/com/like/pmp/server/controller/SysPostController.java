@@ -1,5 +1,6 @@
 package com.like.pmp.server.controller;
 
+import com.google.common.collect.Maps;
 import com.like.pmp.common.response.BaseResponse;
 import com.like.pmp.common.response.StatusCode;
 import com.like.pmp.common.utils.PageUtil;
@@ -128,6 +129,26 @@ public class SysPostController extends AbstractController {
             return new BaseResponse(StatusCode.Fail,e.getMessage());
         }
 
+        return response;
+    }
+
+    /**
+     * 岗位列表
+     * @author like
+     * @date 2022/5/10 20:41
+     * @return com.like.pmp.common.response.BaseResponse
+     */
+    @GetMapping("/select")
+    public BaseResponse select(){
+        BaseResponse response = new BaseResponse(StatusCode.Success);
+        HashMap<String, Object> resMap = Maps.newHashMap();
+        try {
+            log.info("角色列表~select");
+            resMap.put("list", postService.list());
+        }catch (Exception e){
+            return new BaseResponse(StatusCode.Fail,e.getMessage());
+        }
+        response.setData(resMap);
         return response;
     }
 
