@@ -1,5 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.like.pmp.model.mapper.SysUserMapper">
+    <select id="queryAllPerms" resultType="java.lang.String">
+        select perms from sys_user_role as t1
+            left join sys_role_menu as t2 on t1.role_id = t2.role_id
+            left join sys_menu as t3 on t2.menu_id = t3.menu_id
+        where t1.user_id = #{userId}
+    </select>
+
+    <select id="queryDeptIdsByUserId" resultType="Long">
+        SELECT
+            t1.dept_id
+        FROM
+            sys_role_dept AS t1
+                LEFT JOIN sys_user_role AS t2 ON t1.role_id = t2.role_id
+        WHERE
+            t2.user_id = #{userId}
+    </select>
+
+    <!-- 查询用户的所有菜单ID -->
+    <select id="queryAllMenuId" resultType="long">
+        SELECT
+            menu.menu_id
+        FROM sys_user_role AS userRole LEFT JOIN sys_role_menu AS roleMenu ON userRole.role_id = roleMenu.role_id
+                                       LEFT JOIN sys_menu AS menu ON menu.menu_id = roleMenu.menu_id
+        WHERE userRole.user_id = #{userId}
+          AND menu.type != 2
+    </select>
+
+    <select id="selectByUserName" resultType="com.like.pmp.model.entity.SysUser">
+        SELECT *
+        FROM sys_user WHERE username=#{userName}
+    </select>
 
 </mapper>

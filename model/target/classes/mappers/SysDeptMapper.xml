@@ -7,13 +7,17 @@
                (select t2.name from sys_dept t2 where t2.dept_id = t1.parent_id ) parentName
         from sys_dept t1
         where t1.del_flag = 0
-        <!--做后续数据权限过滤的-->
-      <!--  <if test="sql_filter != null">
-            and ${sql_filter}
-        </if>-->
+        <!--数据权限过滤-->
+        <if test="deptDataIds != null and deptDataIds !=''">
+            and t1.dept_id in (${deptDataIds})
+        </if>
     </select>
 
     <select id="queryDeptIds" resultType="long">
-        select dept_id from sys_dept where parent_id = #{parentId} and del_flag = 0
+        select dept_id from sys_dept where  del_flag = 0  and parent_id = #{parentId}
+    </select>
+
+    <select id="queryAllDeptIds" resultType="Long">
+        select dept_id from sys_dept where del_flag = 0
     </select>
 </mapper>

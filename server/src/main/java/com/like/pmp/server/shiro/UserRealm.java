@@ -136,6 +136,7 @@ public class UserRealm extends AuthorizingRealm{
         shaCredentialsMatcher.setHashIterations(ShiroUtil.hashIterations);
         super.setCredentialsMatcher(shaCredentialsMatcher);
     }
+
 }
 
 

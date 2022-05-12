@@ -21,4 +21,5 @@ public interface SysMenuMapper extends BaseMapper<SysMenu> {
 
     List<SysMenu> queryByButtonList(Long menuId);
 
+    List<SysMenu> queryListParentId(Long parentId);
 }

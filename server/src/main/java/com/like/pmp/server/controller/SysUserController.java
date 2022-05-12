@@ -11,6 +11,7 @@ import com.like.pmp.server.service.ISysUserService;
 import com.like.pmp.server.shiro.ShiroUtil;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -93,6 +94,7 @@ public class SysUserController extends AbstractController{
       * @return com.like.pmp.common.response.BaseResponse
       */
      @GetMapping("/list")
+     @RequiresPermissions(value = {"sys:user:list"})
      public BaseResponse list(@RequestParam Map<String,Object> paramMap){
          BaseResponse response = new BaseResponse(StatusCode.Success);
          Map<String,Object> resMap = Maps.newHashMap();
@@ -113,6 +115,7 @@ public class SysUserController extends AbstractController{
       * @return com.like.pmp.common.response.BaseResponse
       */
      @PostMapping(value = "/save",consumes = MediaType.APPLICATION_JSON_VALUE)
+     @RequiresPermissions(value = {"sys:user:save"})
      public BaseResponse save(@RequestBody SysUser entity, BindingResult result){
          String res = ValidatorUtil.checkResult(result);
          if (StringUtils.isNotBlank(res)){
@@ -138,6 +141,7 @@ public class SysUserController extends AbstractController{
      * @return com.like.pmp.common.response.BaseResponse
      */
     @RequestMapping("/info/{userId}")
+    @RequiresPermissions(value = {"sys:user:list"})
     public BaseResponse info(@PathVariable Long userId){
         BaseResponse response=new BaseResponse(StatusCode.Success);
         Map<String,Object> resMap=Maps.newHashMap();
@@ -161,6 +165,7 @@ public class SysUserController extends AbstractController{
      * @return com.like.pmp.common.response.BaseResponse
      */
     @RequestMapping("/update")
+    @RequiresPermissions(value = {"sys:user:update"})
     public BaseResponse update(@RequestBody @Validated SysUser user, BindingResult result){
         String res= ValidatorUtil.checkResult(result);
         if (StringUtils.isNotBlank(res)){
@@ -185,6 +190,7 @@ public class SysUserController extends AbstractController{
      * @return com.like.pmp.common.response.BaseResponse
      */
     @RequestMapping("/delete")
+    @RequiresPermissions(value = {"sys:user:delete"})
     public BaseResponse delete(@RequestBody Long[] ids){
         if (ids==null || ids.length<=0){
             return new BaseResponse(StatusCode.InvalidParams);
@@ -216,6 +222,7 @@ public class SysUserController extends AbstractController{
      */
 
     @RequestMapping("/psd/reset")
+    @RequiresPermissions(value = {"sys:user:resetPsd"})
     public BaseResponse restPsd(@RequestBody Long[] ids){
         if (ids==null || ids.length<=0){
             return new BaseResponse(StatusCode.InvalidParams);

@@ -1,9 +1,11 @@
 package com.like.pmp.model.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -55,6 +57,12 @@ public class SysMenu implements Serializable {
      * 排序
      */
     private Integer orderNum;
+
+    @TableField(exist=false)
+    private Boolean open;
+
+    @TableField(exist=false)
+    private List<?> list;
 
     public Long getMenuId() {
         return menuId;
@@ -111,6 +119,22 @@ public class SysMenu implements Serializable {
 
     public void setOrderNum(Integer orderNum) {
         this.orderNum = orderNum;
+    }
+
+    public Boolean getOpen() {
+        return open;
+    }
+
+    public void setOpen(Boolean open) {
+        this.open = open;
+    }
+
+    public List<?> getList() {
+        return list;
+    }
+
+    public void setList(List<?> list) {
+        this.list = list;
     }
 
     @Override

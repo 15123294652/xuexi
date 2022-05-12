@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.like.pmp.model.mapper.SysUserPostMapper">
-
+    <select id="getPostNameByUserId" resultType="java.lang.String">
+        select t2.post_name as postName from sys_user_post  as t1 left join sys_post as t2 on t1.post_id= t2.post_id
+        where t1.user_id=#{userId}
+    </select>
+    <select id="queryRoleIdList" resultType="Long">
+        select post_id from sys_user_post where user_id=#{userId}
+    </select>
 </mapper>

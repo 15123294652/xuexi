@@ -19,4 +19,6 @@ public interface ISysDeptService extends IService<SysDept> {
     List<SysDept> queryAll(Map<String,Object> map);
 
     List<Long> queryDeptIds(Long parentId);
+
+   List<Long> getSubDeptIdList(Long deptId);
 }

@@ -1,11 +1,13 @@
 package com.like.pmp.server.controller;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.like.pmp.common.response.BaseResponse;
 import com.like.pmp.common.response.StatusCode;
 import com.like.pmp.common.utils.Constant;
 import com.like.pmp.model.entity.SysMenu;
 import com.like.pmp.server.service.ISysMenuService;
+import com.like.pmp.server.shiro.ShiroUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -188,5 +190,26 @@ public class SysMenuController extends AbstractController{
         }
 
         return "";
+    }
+
+    /**
+     * 获取首页菜单列表
+     * @author like
+     * @date 2022/5/6 21:02
+     * @return com.like.pmp.common.response.BaseResponse
+     */
+    @GetMapping("/nav")
+    public BaseResponse nav(){
+        BaseResponse response = new BaseResponse(StatusCode.Success);
+        HashMap<String, Object> resMap = Maps.newHashMap();
+        try {
+
+            List<SysMenu> menuList = menuService.getUserMenuList(getUserId());
+            resMap.put("menuList",menuList);
+        }catch (Exception e){
+            return new BaseResponse(StatusCode.Fail,e.getMessage());
+        }
+        response.setData(resMap);
+        return response;
     }
 }
