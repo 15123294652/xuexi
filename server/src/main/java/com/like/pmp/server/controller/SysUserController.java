@@ -7,6 +7,7 @@ import com.like.pmp.common.utils.Constant;
 import com.like.pmp.common.utils.PageUtil;
 import com.like.pmp.common.utils.ValidatorUtil;
 import com.like.pmp.model.entity.SysUser;
+import com.like.pmp.server.annotation.LogAnnotation;
 import com.like.pmp.server.service.ISysUserService;
 import com.like.pmp.server.shiro.ShiroUtil;
 import org.apache.commons.lang.ArrayUtils;
@@ -95,6 +96,7 @@ public class SysUserController extends AbstractController{
       */
      @GetMapping("/list")
      @RequiresPermissions(value = {"sys:user:list"})
+     @LogAnnotation("分页查询")
      public BaseResponse list(@RequestParam Map<String,Object> paramMap){
          BaseResponse response = new BaseResponse(StatusCode.Success);
          Map<String,Object> resMap = Maps.newHashMap();
@@ -142,6 +144,7 @@ public class SysUserController extends AbstractController{
      */
     @RequestMapping("/info/{userId}")
     @RequiresPermissions(value = {"sys:user:list"})
+    @LogAnnotation("用户获取详情")
     public BaseResponse info(@PathVariable Long userId){
         BaseResponse response=new BaseResponse(StatusCode.Success);
         Map<String,Object> resMap=Maps.newHashMap();

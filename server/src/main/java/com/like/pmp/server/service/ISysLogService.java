@@ -1,7 +1,10 @@
 package com.like.pmp.server.service;
 
+import com.like.pmp.common.utils.PageUtil;
 import com.like.pmp.model.entity.SysLog;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -13,4 +16,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ISysLogService extends IService<SysLog> {
 
+    PageUtil queryPage(Map<String, Object> params);
+
+    void truncate();
 }

@@ -1,7 +1,10 @@
 package com.like.pmp.server.service;
 
+import com.like.pmp.common.utils.PageUtil;
 import com.like.pmp.model.entity.SysDict;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.Map;
 
 /**
  * <p>
@@ -12,5 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2022-04-26
  */
 public interface ISysDictService extends IService<SysDict> {
-
+    PageUtil queryPage(Map<String, Object> params);
 }

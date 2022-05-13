@@ -12,6 +12,9 @@ server:
 
 #json序列化配置
 spring:
+  #解决循环依赖
+  main:
+    allow-circular-references: true
   jackson:
     date-format: yyyy-mm-dd HH:mm:ss
     time-zone: GMT+8

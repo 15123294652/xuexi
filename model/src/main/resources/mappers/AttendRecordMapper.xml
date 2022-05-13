@@ -1,5 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.like.pmp.model.mapper.AttendRecordMapper">
+    <sql id="commonQueryAll">
+        SELECT
+            a.*,
+            b.name AS userName,
+            c.name AS deptName
+        FROM attend_record AS a LEFT JOIN sys_user AS b ON a.user_id = b.user_id
+                                LEFT JOIN sys_dept AS c ON c.dept_id = a.dept_id
+    </sql>
+
+    <select id="queryPage" resultType="com.like.pmp.model.entity.AttendRecord" parameterType="Map">
+        <include refid="commonQueryAll"/>
+
+        <where>
+
+            <if test="paramMap.status!=null and paramMap.status!=''">
+                AND a.status=#{paramMap.status}
+            </if>
+            <if test="paramMap.userName!=null and paramMap.userName!=''">
+                AND b.name LIKE CONCAT('%',#{paramMap.userName},'%')
+            </if>
+            <if test="paramMap.deptId!=null and paramMap.deptId!=0">
+                AND a.dept_id = #{paramMap.deptId}
+            </if>
+            <if test="paramMap.startDate!=null and paramMap.endDate!=null and paramMap.startDate!='' and paramMap.endDate!=''">
+                AND <![CDATA[ (DATE_FORMAT(a.start_time,'%Y-%m-%d') >= #{paramMap.startDate}
+
+                AND DATE_FORMAT(a.start_time,'%Y-%m-%d') <= #{paramMap.endDate})
+                AND (DATE_FORMAT(a.end_time,'%Y-%m-%d') <= #{paramMap.endDate}) ]]>
+            </if>
+
+        </where>
+
+        ORDER BY a.create_time DESC
+    </select>
+
+
+
+    <select id="selectExportData" resultType="com.like.pmp.model.entity.AttendRecord" parameterType="Map">
+        <include refid="commonQueryAll"/>
+
+        <where>
+
+            <if test="params.status!=null and params.status!=''">
+                AND a.status=#{status}
+            </if>
+            <if test="params.userName!=null and params.userName!=''">
+                AND b.name LIKE CONCAT('%',#{userName},'%')
+            </if>
+            <if test="params.deptId!=null and params.deptId!=0">
+                AND a.dept_id = #{deptId}
+            </if>
+            <if test="params.startDate!=null and params.endDate!=null and params.startDate!='' and params.endDate!=''">
+                AND <![CDATA[ (DATE_FORMAT(a.start_time,'%Y-%m-%d') >= #{startDate} AND DATE_FORMAT(a.start_time,'%Y-%m-%d') <= #{endDate})
+                  AND (DATE_FORMAT(a.end_time,'%Y-%m-%d') <= #{endDate}) ]]>
+            </if>
+
+        </where>
+
+        ORDER BY a.create_time DESC
+    </select>
+
+    <select id="queryPageSqlServer" resultType="com.like.pmp.model.entity.AttendRecord" parameterType="Map">
+        <include refid="commonQueryAll"/>
+
+        <where>
+
+            <if test="params.status!=null and params.status!=''">
+                AND a.status=#{status}
+            </if>
+            <if test="params.userName!=null and params.userName!=''">
+                AND b.name LIKE '%'+#{userName}+'%'
+            </if>
+            <if test="params.deptId!=null and params.deptId!=0">
+                AND a.dept_id = #{deptId}
+            </if>
+            <if test="params.startDate!=null and endDate!=null and params.startDate!='' and params.endDate!=''">
+                AND <![CDATA[ (CONVERT(varchar(100), a.start_time, 23) >= #{startDate} AND CONVERT(varchar(100), a.start_time, 23) <= #{endDate})
+                AND (CONVERT(varchar(100), a.end_time, 23) <= #{endDate}) ]]>
+            </if>
+
+        </where>
+
+        ORDER BY a.create_time DESC
+    </select>
 
 </mapper>

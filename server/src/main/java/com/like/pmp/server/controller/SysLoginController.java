@@ -4,6 +4,7 @@ import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 import com.like.pmp.common.response.BaseResponse;
 import com.like.pmp.common.response.StatusCode;
+import com.like.pmp.server.annotation.LogAnnotation;
 import com.like.pmp.server.shiro.ShiroUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
